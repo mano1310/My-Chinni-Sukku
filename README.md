@@ -1,2 +1,2 @@
 # My-Chinni-Sukku
-Expressing Manu love to Sukku
+Expressing Manu's love to Sukku
