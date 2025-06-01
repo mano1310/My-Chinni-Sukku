@@ -319,6 +319,9 @@
   </div>
 
   <script>
+    // Memory storage using variables (persistent during session)
+    let memories = {"journal":[],"media":[]};
+
     // Birthday countdown functionality
     function updateCountdown() {
       const birthday = new Date('2025-06-15T00:00:00+05:30').getTime();
@@ -418,7 +421,7 @@
           
           gallery.appendChild(photoItem);
           
-          // Save to memory (in a real app, you'd save to a server)
+          // Save to memory
           saveToMemory('media', {
             type: file.type,
             data: e.target.result,
@@ -450,13 +453,6 @@
       saveToMemory('journal', entry);
       input.value = '';
     }
-    const journalContainer = document.getElementById('journalEntries');
-      journalContainer.innerHTML = '';
-      
-      // Load journal entries
-      memories.journal.forEach(entry => {
-        displayJournalEntry(entry);
-      });
 
     function displayJournalEntry(entry) {
       const container = document.getElementById('journalEntries');
@@ -474,9 +470,7 @@
       container.insertBefore(entryDiv, container.firstChild);
     }
 
-    // Memory storage (using variables instead of localStorage)
-    let memories = {"journal":[],"media":[]};
-      
+    // Memory storage functions
     function saveToMemory(type, data) {
       memories[type].push(data);
     }
@@ -486,20 +480,22 @@
     }
 
     function loadMemories() {
-      const memories = getMemories();
+      const currentMemories = getMemories();
       
-      // Load journal entries
-      memories.journal.forEach(entry => {
-        displayJournalEntry(entry);
-      });
-      
-      // Clear existing uploaded photos first (but keep the hardcoded one)
-      // Clear existing uploaded photos
+      // Clear existing content
       const gallery = document.getElementById('photoGallery');
       gallery.innerHTML = '';
       
+      const journalContainer = document.getElementById('journalEntries');
+      journalContainer.innerHTML = '';
+      
+      // Load journal entries
+      currentMemories.journal.forEach(entry => {
+        displayJournalEntry(entry);
+      });
+      
       // Load media files
-      memories.media.forEach(media => {
+      currentMemories.media.forEach(media => {
         const photoItem = document.createElement('div');
         photoItem.className = 'photo-item';
         
@@ -524,6 +520,7 @@
         gallery.appendChild(photoItem);
       });
     }
+
     // Birthday surprise function
     function createBirthdaySurprise() {
       // Create surprise modal
