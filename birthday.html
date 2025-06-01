@@ -452,6 +452,13 @@
       saveToMemory('journal', entry);
       input.value = '';
     }
+    const journalContainer = document.getElementById('journalEntries');
+      journalContainer.innerHTML = '';
+      
+      // Load journal entries
+      memories.journal.forEach(entry => {
+        displayJournalEntry(entry);
+      });
 
     function displayJournalEntry(entry) {
       const container = document.getElementById('journalEntries');
@@ -488,9 +495,16 @@
         displayJournalEntry(entry);
       });
       
+      // Clear existing uploaded photos first (but keep the hardcoded one)
+      const gallery = document.getElementById('photoGallery');
+      const existingPhotos = gallery.querySelectorAll('.photo-item');
+      // Remove all except the first one (your hardcoded Google Drive photo)
+      for (let i = 1; i < existingPhotos.length; i++) {
+        existingPhotos[i].remove();
+      }
+      
       // Load media files
       memories.media.forEach(media => {
-        const gallery = document.getElementById('photoGallery');
         const photoItem = document.createElement('div');
         photoItem.className = 'photo-item';
         
@@ -515,7 +529,6 @@
         gallery.appendChild(photoItem);
       });
     }
-
     // Birthday surprise function
     function createBirthdaySurprise() {
       // Create surprise modal
