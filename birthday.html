@@ -283,9 +283,7 @@
     <input type="file" id="fileInput" style="display: none;" multiple accept="image/*,video/*">
     
     <div class="photo-gallery" id="photoGallery">
-      <div class="photo-item">
-  <img src="https://drive.google.com/drive/folders/1-NTXZKo1xaLc3H53qj_KH0Tk7l1vu9WI" alt="Memory">
-</div>
+      
     </div>
   </div>
 
@@ -323,7 +321,7 @@
   <script>
     // Birthday countdown functionality
     function updateCountdown() {
-      const birthday = new Date('2025-06-15T00:00:00').getTime();
+      const birthday = new Date('2025-06-15T00:00:00+05:30').getTime();
       const now = new Date().getTime();
       const distance = birthday - now;
 
@@ -477,14 +475,14 @@
     }
 
     // Memory storage (using variables instead of localStorage)
+    let memories = {"journal":[],"media":[]};
+      
     function saveToMemory(type, data) {
-      const memories = JSON.parse(localStorage.getItem('birthdayMemories') || '{"journal":[],"media":[]}');
       memories[type].push(data);
-      localStorage.setItem('birthdayMemories', JSON.stringify(memories));
     }
     
     function getMemories() {
-      return JSON.parse(localStorage.getItem('birthdayMemories') || '{"journal":[],"media":[]}');
+      return memories;
     }
 
     function loadMemories() {
@@ -496,12 +494,9 @@
       });
       
       // Clear existing uploaded photos first (but keep the hardcoded one)
+      // Clear existing uploaded photos
       const gallery = document.getElementById('photoGallery');
-      const existingPhotos = gallery.querySelectorAll('.photo-item');
-      // Remove all except the first one (your hardcoded Google Drive photo)
-      for (let i = 1; i < existingPhotos.length; i++) {
-        existingPhotos[i].remove();
-      }
+      gallery.innerHTML = '';
       
       // Load media files
       memories.media.forEach(media => {
