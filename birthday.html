@@ -319,51 +319,112 @@
   </div>
 
   <script>
-    // Memory storage using localStorage (persistent across refreshes)
-    function initializeMemories() {
-      if (!localStorage.getItem('birthdayMemories')) {
-        localStorage.setItem('birthdayMemories', JSON.stringify({"journal":[],"media":[]}));
+    // Configuration for JSONBin.io (free service)
+    const JSONBIN_CONFIG = {
+      binId: '683c79758a456b7966a81bbb', // You'll need to create this
+      accessKey: '$2a$10$hvn7OurgVrZUyUkZrMLZIeOhORM9aDu4dRdKBeIVkyY4doXcLrK6i', // You'll need to get this
+      baseUrl: 'https://api.jsonbin.io/v3'
+    };
+    
+    // Initialize with online storage
+    let isOnline = true;
+    let journalData = [];
+    
+    async function initializeMemories() {
+      try {
+        await loadJournalFromCloud();
+      } catch (error) {
+        console.log('Using local storage fallback');
+        isOnline = false;
+        loadLocalJournal();
       }
     }
-
+    
+    // Cloud storage functions
+    async function loadJournalFromCloud() {
+      const response = await fetch(`${JSONBIN_CONFIG.baseUrl}/b/${JSONBIN_CONFIG.binId}/latest`, {
+        headers: {
+          'X-Access-Key': JSONBIN_CONFIG.accessKey
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        journalData = data.record.journal || [];
+        displayAllJournalEntries();
+      } else {
+        throw new Error('Failed to load from cloud');
+      }
+    }
+    
+    async function saveJournalToCloud() {
+      if (!isOnline) {
+        saveLocalJournal();
+        return;
+      }
+      
+      try {
+        const response = await fetch(`${JSONBIN_CONFIG.baseUrl}/b/${JSONBIN_CONFIG.binId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Access-Key': JSONBIN_CONFIG.accessKey
+          },
+          body: JSON.stringify({ journal: journalData })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to save to cloud');
+        }
+      } catch (error) {
+        console.log('Saving locally instead');
+        saveLocalJournal();
+      }
+    }
+    
+    // Local storage fallback
+    function loadLocalJournal() {
+      const stored = localStorage.getItem('birthdayJournal');
+      journalData = stored ? JSON.parse(stored) : [];
+      displayAllJournalEntries();
+    }
+    
+    function saveLocalJournal() {
+      localStorage.setItem('birthdayJournal', JSON.stringify(journalData));
+    }
+    
     // Birthday countdown functionality
     function updateCountdown() {
       const birthday = new Date('2025-06-15T00:00:00+05:30').getTime();
       const now = new Date().getTime();
       const distance = birthday - now;
-
+    
       if (distance < 0) {
-        // Birthday has arrived!
         document.getElementById('countdown-display').style.display = 'none';
         document.getElementById('birthday-message').style.display = 'block';
         document.getElementById('surpriseSection').style.display = 'block';
         return;
       }
-
+    
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+    
       document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
       document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
       document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
       document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
     }
-
-    // Show birthday wishes (only available on birthday)
+    
     function showBirthdayWishes() {
       const birthdayWishes = document.getElementById('birthdayWishes');
       birthdayWishes.style.display = 'block';
       birthdayWishes.scrollIntoView({ behavior: 'smooth' });
-      
-      // Add special animation
       birthdayWishes.style.animation = 'fadeIn 2s ease-in-out';
-      
-      // Create celebration effect
       createConfetti();
     }
-
+    
     // Floating hearts animation
     function createFloatingHearts() {
       const heartsContainer = document.querySelector('.floating-hearts');
@@ -373,72 +434,29 @@
           <path fill="#ff69b4" d="M16,28.261c0,0-14-7.926-14-17.046c0-8.565,9.333-11.816,14-4.312
           c4.667-7.504,14-4.252,14,4.312C30,20.335,16,28.261,16,28.261z"/>
         </svg>`;
-
+    
       for (let i = 0; i < numberOfHearts; i++) {
         const heartDiv = document.createElement('div');
         heartDiv.innerHTML = heartSVG;
         const heart = heartDiv.firstElementChild;
-
+    
         const size = Math.random() * 10 + 15;
         const left = Math.random() * 100;
         const duration = Math.random() * 10 + 8;
         const delay = Math.random() * 5;
-
+    
         heart.style.position = 'absolute';
         heart.style.left = `${left}%`;
         heart.style.animation = `float ${duration}s linear infinite`;
         heart.style.animationDelay = `${delay}s`;
         heart.style.opacity = '0.7';
-
+    
         heartsContainer.appendChild(heart);
       }
     }
-
-    // File upload functionality
-    document.getElementById('fileInput').addEventListener('change', function(e) {
-      const files = Array.from(e.target.files);
-      const gallery = document.getElementById('photoGallery');
-      
-      files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const photoItem = document.createElement('div');
-          photoItem.className = 'photo-item';
-          
-          if (file.type.startsWith('image/')) {
-            photoItem.innerHTML = `
-              <img src="${e.target.result}" alt="Memory">
-              <div style="position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px; border-radius: 5px; font-size: 12px;">
-                ${new Date().toLocaleDateString()}
-              </div>
-            `;
-          } else if (file.type.startsWith('video/')) {
-            photoItem.innerHTML = `
-              <video controls style="width: 100%; height: 200px; object-fit: cover;">
-                <source src="${e.target.result}" type="${file.type}">
-              </video>
-              <div style="position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px; border-radius: 5px; font-size: 12px;">
-                ${new Date().toLocaleDateString()}
-              </div>
-            `;
-          }
-          
-          gallery.appendChild(photoItem);
-          
-          // Save to memory
-          saveToMemory('media', {
-            type: file.type,
-            data: e.target.result,
-            date: new Date().toISOString(),
-            name: file.name
-          });
-        };
-        reader.readAsDataURL(file);
-      });
-    });
-
-    // Journal functionality
-    function addJournalEntry() {
+    
+    // Journal functionality with cloud sync
+    async function addJournalEntry() {
       const input = document.getElementById('journalInput');
       const text = input.value.trim();
       
@@ -453,11 +471,15 @@
         id: Date.now()
       };
       
+      journalData.unshift(entry); // Add to beginning
       displayJournalEntry(entry);
-      saveToMemory('journal', entry);
+      await saveJournalToCloud();
       input.value = '';
+      
+      // Show sync status
+      showSyncStatus(isOnline ? 'Synced across devices! ✨' : 'Saved locally 💾');
     }
-
+    
     function displayJournalEntry(entry) {
       const container = document.getElementById('journalEntries');
       const entryDiv = document.createElement('div');
@@ -473,63 +495,33 @@
       `;
       container.insertBefore(entryDiv, container.firstChild);
     }
-
-    // Memory storage functions
-    function saveToMemory(type, data) {
-      const memories = JSON.parse(localStorage.getItem('birthdayMemories'));
-      memories[type].push(data);
-      localStorage.setItem('birthdayMemories', JSON.stringify(memories));
-    }
     
-    function getMemories() {
-      return JSON.parse(localStorage.getItem('birthdayMemories'));
-    }
-
-    function loadMemories() {
-      const currentMemories = getMemories();
-      
-      // Clear existing content
-      const gallery = document.getElementById('photoGallery');
-      gallery.innerHTML = '';
-      
-      const journalContainer = document.getElementById('journalEntries');
-      journalContainer.innerHTML = '';
-      
-      // Load journal entries
-      currentMemories.journal.forEach(entry => {
+    function displayAllJournalEntries() {
+      const container = document.getElementById('journalEntries');
+      container.innerHTML = '';
+      journalData.forEach(entry => {
         displayJournalEntry(entry);
       });
-      
-      // Load media files
-      currentMemories.media.forEach(media => {
-        const photoItem = document.createElement('div');
-        photoItem.className = 'photo-item';
-        
-        if (media.type.startsWith('image/')) {
-          photoItem.innerHTML = `
-            <img src="${media.data}" alt="Memory">
-            <div style="position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px; border-radius: 5px; font-size: 12px;">
-              ${new Date(media.date).toLocaleDateString()}
-            </div>
-          `;
-        } else if (media.type.startsWith('video/')) {
-          photoItem.innerHTML = `
-            <video controls style="width: 100%; height: 200px; object-fit: cover;">
-              <source src="${media.data}" type="${media.type}">
-            </video>
-            <div style="position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px; border-radius: 5px; font-size: 12px;">
-              ${new Date(media.date).toLocaleDateString()}
-            </div>
-          `;
-        }
-        
-        gallery.appendChild(photoItem);
-      });
     }
-
+    
+    function showSyncStatus(message) {
+      const status = document.createElement('div');
+      status.style.cssText = `
+        position: fixed; top: 20px; right: 20px; background: #4CAF50; 
+        color: white; padding: 10px 20px; border-radius: 25px; 
+        z-index: 1000; font-size: 14px; animation: slideIn 0.3s ease;
+      `;
+      status.textContent = message;
+      document.body.appendChild(status);
+      
+      setTimeout(() => {
+        status.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => status.remove(), 300);
+      }, 2000);
+    }
+    
     // Birthday surprise function
     function createBirthdaySurprise() {
-      // Create surprise modal
       const modal = document.createElement('div');
       modal.style.cssText = `
         position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -552,11 +544,9 @@
       `;
       
       document.body.appendChild(modal);
-      
-      // Create confetti effect
       createConfetti();
     }
-
+    
     function createConfetti() {
       const colors = ['#ff3366', '#ff66a3', '#ffb3d9', '#ff9999', '#ffccdd'];
       const confettiContainer = document.createElement('div');
@@ -583,8 +573,8 @@
         confettiContainer.remove();
       }, 5000);
     }
-
-    // Add CSS animation for floating hearts
+    
+    // Add CSS animations
     const style = document.createElement('style');
     style.textContent = `
       @keyframes float {
@@ -602,16 +592,25 @@
         0% { opacity: 0; transform: translateY(50px); }
         100% { opacity: 1; transform: translateY(0); }
       }
+      
+      @keyframes slideIn {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+      }
+      
+      @keyframes slideOut {
+        from { transform: translateX(0); }
+        to { transform: translateX(100%); }
+      }
     `;
     document.head.appendChild(style);
-
+    
     // Initialize everything
     document.addEventListener('DOMContentLoaded', function() {
       initializeMemories();
       updateCountdown();
       setInterval(updateCountdown, 1000);
       createFloatingHearts();
-      loadMemories();
     });
   </script>
 </body>
