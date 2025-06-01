@@ -319,8 +319,12 @@
   </div>
 
   <script>
-    // Memory storage using variables (persistent during session)
-    let memories = {"journal":[],"media":[]};
+    // Memory storage using localStorage (persistent across refreshes)
+    function initializeMemories() {
+      if (!localStorage.getItem('birthdayMemories')) {
+        localStorage.setItem('birthdayMemories', JSON.stringify({"journal":[],"media":[]}));
+      }
+    }
 
     // Birthday countdown functionality
     function updateCountdown() {
@@ -472,11 +476,13 @@
 
     // Memory storage functions
     function saveToMemory(type, data) {
+      const memories = JSON.parse(localStorage.getItem('birthdayMemories'));
       memories[type].push(data);
+      localStorage.setItem('birthdayMemories', JSON.stringify(memories));
     }
     
     function getMemories() {
-      return memories;
+      return JSON.parse(localStorage.getItem('birthdayMemories'));
     }
 
     function loadMemories() {
@@ -601,6 +607,7 @@
 
     // Initialize everything
     document.addEventListener('DOMContentLoaded', function() {
+      initializeMemories();
       updateCountdown();
       setInterval(updateCountdown, 1000);
       createFloatingHearts();
