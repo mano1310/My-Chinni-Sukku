@@ -283,120 +283,177 @@
   </div>
 
   <script>
-    // Fixed JavaScript without audio and with proper error handling
-    let currentStep = 0;
-    let isAnimating = false;
-
-    // Initialize the gift box
-    document.addEventListener('DOMContentLoaded', function() {
-      const kadoIn = document.getElementById('kadoIn');
-      const giftBox = document.querySelector('.gift-box');
-      
-      if (giftBox) {
-        giftBox.addEventListener('click', bukakado);
-      }
+    // Your original giftbox.js functionality (modified to work without audio)
+    const body = document.querySelector("body");
+    const swalst = Swal.mixin({
+      timer: 2300,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      timerProgressBar: true,
+      imageHeight: 90,
     });
 
-    async function bukakado() {
-      if (isAnimating) return;
-      isAnimating = true;
-      
-      const kadoIn = document.getElementById('kadoIn');
-      const kumpulanstiker = document.querySelector('.kumpulanstiker');
-      const bq = document.getElementById('bq');
-      
-      // Hide gift box
-      kadoIn.style.transform = 'scale(0)';
-      kadoIn.style.opacity = '0';
-      
-      setTimeout(() => {
-        kadoIn.style.display = 'none';
-        
-        // Show stickers
-        if (kumpulanstiker) {
-          kumpulanstiker.style.display = 'block';
-          kumpulanstiker.style.opacity = '1';
-        }
-        
-        // Show message box
-        if (bq) {
-          bq.style.opacity = '1';
-          bq.style.visibility = 'visible';
-          
-          // Start message sequence
-          setTimeout(inipesan, 1000);
-        }
-        
-        isAnimating = false;
-      }, 1000);
-    }
+    // Skip audio initialization since we removed it
+    ftganti = 0;
+    fungsi = 0;
+    fungsiAwal = 0;
+    
+    // Get elements
+    const Content = document.getElementById('Content');
+    const kadoIn = document.getElementById('kadoIn');
+    const wallpaper = document.getElementById('wallpaper');
+    const ket = document.getElementById('ket');
+    const bodyblur = document.getElementById('bodyblur');
+    const kumpulanstiker = document.querySelector('.kumpulanstiker');
+    const bq = document.getElementById('bq');
+    const Tombol = document.getElementById('Tombol');
+    const fotostiker = document.getElementById('fotostiker');
+    const fotostiker5 = document.getElementById('fotostiker5');
+    const stikerditolak = document.getElementById('stikerditolak');
+    const kataditolak = document.getElementById('kataditolak');
+    
+    Content.style = "opacity:1;margin-top:16vh";
+
+    const swals = Swal.mixin({
+      allowOutsideClick: false,
+      cancelButtonColor: "#FF0040",
+      imageHeight: 80,
+    });
+
+    document.getElementById("kadoIn").onclick = function () {
+      if (fungsiAwal == 0) {
+        // Skip audio.play() since we removed audio
+        fungsiAwal = 1;
+        kadoIn.style = "transition:all .8s ease;transform:scale(10);opacity:0";
+        wallpaper.style = "transform: scale(1.5);";
+        ket.style = "display:none";
+        setTimeout(initengahan, 300);
+        setTimeout(inipesan, 500);
+      }
+    };
 
     async function inipesan() {
-      const messages = [
-        'kalimat',
-        'pesan1', 
-        'lv1', 'lv2', 'lv3', 'lv4',
-        'pesan2',
-        'pesan3', 
-        'pesan4',
-        'pesan5',
-        'pesan6',
-        'opsL'
-      ];
-      
-      for (let i = 0; i < messages.length; i++) {
-        const element = document.getElementById(messages[i]);
-        if (element) {
-          if (messages[i].startsWith('lv')) {
-            element.style.display = 'block';
-          } else {
-            element.style.display = 'block';
-          }
-          
-          // Add typing effect for text elements
-          if (!messages[i].startsWith('lv')) {
-            const text = element.textContent;
-            element.textContent = '';
-            element.style.display = 'block';
-            
-            for (let j = 0; j < text.length; j++) {
-              element.textContent += text[j];
-              await new Promise(resolve => setTimeout(resolve, 50));
-            }
-          }
-          
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-      }
-      
-      // Show next button
-      const tombol = document.getElementById('Tombol');
-      if (tombol) {
-        tombol.style.opacity = '1';
-        tombol.style.visibility = 'visible';
-      }
-      
-      // Add click handler for messages
-      const bq = document.getElementById('bq');
-      if (bq) {
-        bq.addEventListener('click', nextMessage);
-      }
-    }
-
-    function nextMessage() {
-      // Add your next message logic here
-      console.log('Next message clicked');
-    }
-
-    // Handle next button click
-    document.addEventListener('DOMContentLoaded', function() {
-      const nextBtn = document.getElementById('By');
-      if (nextBtn) {
-        nextBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          // Add your next surprise logic here
-          alert('Next surprise coming soon! 🎉');
+      var { value: nama } = await swals.fire({
+        title: "What's your beautiful name, my love?",
+        input: "text",
+        inputPlaceholder: "Enter your name here...",
+        inputValue: "Sukku" // Default value
+      });
+      if (nama && nama.length < 11) {
+        window.nama = nama;
+        vketikhalo = "Happy Birthday, " + nama + "! 💖";
+        mulainama();
+      } else {
+        await Swal.fire({
+          title: "Your name is beautiful!",
+          text: "Please enter a shorter name so I can call you properly.",
+          icon: "info",
         });
+        inipesan();
+      }
+    }
+
+    var tanya = "are you ready for your special photo carousel surprise?";
+    var opstanya = "Your choice is:";
+    var tompositif = "Yes! Show me the surprise! 💖";
+    var tomnegatif = "Maybe later";
+
+    async function pertanyaan() {
+      var { isConfirmed: prtanya } = await swals.fire({
+        title: nama + ", " + tanya,
+        text: "" + opstanya,
+        imageUrl: fotostiker5 ? fotostiker5.src : "https://feeldreams.github.io/pandacoklat.gif",
+        showCancelButton: true,
+        confirmButtonText: "" + tompositif,
+        cancelButtonText: "" + tomnegatif,
+      });
+      if (prtanya) {
+        pesanwhatsapp = "Yes " + nama + ", let's see the beautiful photos!";
+        menuju();
+      } else {
+        pesanwhatsapp = nama + ", don't miss this special surprise!";
+        await swalst.fire({
+          title: "" + kataditolak.innerHTML,
+          timer: 2000,
+          imageUrl: stikerditolak ? stikerditolak.src : "https://feeldreams.github.io/weee.gif",
+        });
+        menuju();
+      }
+    }
+
+    function menuju() {
+      // For now, just show an alert since carousel.html might not exist
+      Swal.fire({
+        title: "Photo Carousel Coming Soon!",
+        text: "This would redirect to your photo carousel page",
+        icon: "success"
+      });
+      // Uncomment this when you have carousel.html ready:
+      // window.location.href = "carousel.html";
+    }
+
+    // Animation functions
+    function initengahan() {
+      bodyblur.style = "opacity:.2;animation:none;background:rgba(0,0,0,.3)";
+      kumpulanstiker.style = "display:flex;opacity:1;animation:none";
+      bq.style = "opacity:1;visibility:visible;transform: scale(1)";
+      Tombol.style = "opacity:1;visibility:visible;transform: scale(1)";
+    }
+
+    function mulainama() {
+      new TypeIt("#halo", {
+        strings: [vketikhalo],
+        startDelay: 400,
+        speed: 45,
+        cursor: false,
+        afterComplete: function () {
+          setTimeout(initengahan2, 500);
+        },
+      }).go();
+    }
+
+    function initengahan2() {
+      // Show all messages step by step
+      setTimeout(() => {
+        document.getElementById("pesan1").style.opacity = "1";
+      }, 500);
+      setTimeout(() => {
+        document.getElementById("kolombaru").style.opacity = "1";
+      }, 1000);
+      setTimeout(() => {
+        document.getElementById("pesan2").style.opacity = "1";
+      }, 1500);
+      setTimeout(() => {
+        document.getElementById("pesan3").style.opacity = "1";
+      }, 2000);
+      setTimeout(() => {
+        document.getElementById("pesan4").style.opacity = "1";
+      }, 2500);
+      setTimeout(() => {
+        document.getElementById("pesan5").style.opacity = "1";
+      }, 3000);
+      setTimeout(() => {
+        document.getElementById("pesan6").style.opacity = "1";
+      }, 3500);
+      setTimeout(() => {
+        document.getElementById("opsL").style.opacity = "1";
+        // Enable the next button
+        document.getElementById("By").onclick = pertanyaan;
+      }, 4000);
+    }
+
+    // Initially hide all messages
+    document.addEventListener("DOMContentLoaded", function() {
+      const messages = ["pesan1", "pesan2", "pesan3", "pesan4", "pesan5", "pesan6", "opsL"];
+      messages.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.opacity = "0";
+        }
+      });
+      const kolombaru = document.getElementById("kolombaru");
+      if (kolombaru) {
+        kolombaru.style.opacity = "0";
       }
     });
   </script>
