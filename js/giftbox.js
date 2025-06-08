@@ -25,7 +25,7 @@
       padding: 25px;
       font-family: var(--gaya-font);
       text-align: center;
-      overflow: hidden;
+      // overflow: hidden;
       background: linear-gradient(to bottom, #ffe1e1, #ff217de0);
       background-attachment: fixed;
       background-size: cover;
