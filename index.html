@@ -4,89 +4,851 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Chinni ❤️</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&family=Open+Sans&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      /* REMOVED overflow: hidden to allow scrolling */
+      position: relative;
+    }
+
+    /* Gift Box Section Styles */
+    .gift-section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(to bottom, #ffe1e1, #ff217de0);
+    }
+
+    .gift-section.hidden {
+      display: none;
+    }
+
+    #bodyblur {
+      opacity: 0.3;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      transition: all 1s ease;
+      z-index: 1;
+    }
+
+    #Content {
+      position: relative;
+      opacity: 1;
+      transition: all 1s ease;
+      z-index: 2;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    #kadoIn {
+      margin: auto;
+      padding: 20px;
+      transition: all 4s ease;
+    }
+
+    .gift-box {
+      width: 130px;
+      height: 130px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.1);
+    }
+
+    #ket {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+      margin-top: 10px;
+    }
+
+    .kumpulanstiker {
+      display: none;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .kumpulanstiker img {
+      width: 80px;
+      height: auto;
+      margin: 5px;
+    }
+
+    #halo {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+    }
+
+    #bq {
+      opacity: 0;
+      visibility: hidden;
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+      transition: all 1s ease;
+      max-width: 500px;
+    }
+
+    #bq p {
+      font-size: 16px;
+      margin: 15px 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #bq p:first-child {
+      opacity: 1;
+    }
+
+    .sty2 {
+      font-size: 16px;
+      font-style: italic;
+      color: #ffcc00;
+    }
+
+    #kolombaru {
+      margin: 15px 0;
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      opacity: 0;
+    }
+
+    #kolombaru li {
+      margin: 0 10px;
+      font-size: 24px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    #Tombol {
+      margin: 20px 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 1s ease;
+    }
+
+    #Tombol a {
+      display: inline-block;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    #Tombol a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Carousel Section Styles */
+    .carousel-section {
+      min-height: 100vh;
+      padding: 50px 20px;
+      display: none;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .carousel-section.active {
+      display: block;
+    }
+
+    /* Hearts Animation */
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      color: rgba(255, 105, 180, 0.7);
+      animation: float-hearts 8s infinite linear;
+    }
+
+    @keyframes float-hearts {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* 3D Carousel Styles */
+    #drag-container, #spin-container {
+      position: relative;
+      display: flex;
+      margin: auto;
+      transform-style: preserve-3d;
+      transform: rotateX(-10deg);
+    }
+
+    #drag-container {
+      height: 400px;
+      width: 400px;
+      margin: 50px auto;
+    }
+
+    #spin-container {
+      width: 100%;
+      height: 100%;
+      animation: spin 20s infinite linear;
+    }
+
+    #spin-container img {
+      width: 100px;
+      height: 140px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform-origin: 50% 50% -150px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      border-radius: 10px;
+      border: 3px solid #fff;
+    }
+
+    #spin-container img:nth-child(1) { transform: rotateY(0deg) translateZ(150px); }
+    #spin-container img:nth-child(2) { transform: rotateY(36deg) translateZ(150px); }
+    #spin-container img:nth-child(3) { transform: rotateY(72deg) translateZ(150px); }
+    #spin-container img:nth-child(4) { transform: rotateY(108deg) translateZ(150px); }
+    #spin-container img:nth-child(5) { transform: rotateY(144deg) translateZ(150px); }
+    #spin-container img:nth-child(6) { transform: rotateY(180deg) translateZ(150px); }
+    #spin-container img:nth-child(7) { transform: rotateY(216deg) translateZ(150px); }
+    #spin-container img:nth-child(8) { transform: rotateY(252deg) translateZ(150px); }
+    #spin-container img:nth-child(9) { transform: rotateY(288deg) translateZ(150px); }
+    #spin-container img:nth-child(10) { transform: rotateY(324deg) translateZ(150px); }
+
+    #spin-container p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      background: rgba(255,255,255,0.1);
+      padding: 10px 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes spin {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+
+    /* Main Content Styles */
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      margin: 50px auto;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 800px;
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(10px);
+    }
+
+    .fade-in {
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #8e44ad;
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .message-container {
+      padding: 20px;
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.8;
+      text-align: justify;
+      max-width: 650px;
+      margin: auto;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .message-container p {
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      margin: 20px 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      font-family: 'Quicksand', sans-serif;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .btn-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .gift-box {
+        width: 100px;
+        height: 100px;
+      }
+
+      #bq {
+        margin: 20px 10px;
+        padding: 15px;
+        max-width: 90%;
+      }
+
+      #bq p {
+        font-size: 14px;
+        margin: 10px 0;
+      }
+
+      #ket {
+        font-size: 16px;
+      }
+
+      .kumpulanstiker img {
+        width: 60px;
+      }
+
+      #drag-container {
+        height: 300px;
+        width: 300px;
+      }
+      
+      #spin-container img {
+        width: 80px;
+        height: 110px;
+        transform-origin: 50% 50% -120px;
+      }
+      
+      #spin-container img:nth-child(1) { transform: rotateY(0deg) translateZ(120px); }
+      #spin-container img:nth-child(2) { transform: rotateY(36deg) translateZ(120px); }
+      #spin-container img:nth-child(3) { transform: rotateY(72deg) translateZ(120px); }
+      #spin-container img:nth-child(4) { transform: rotateY(108deg) translateZ(120px); }
+      #spin-container img:nth-child(5) { transform: rotateY(144deg) translateZ(120px); }
+      #spin-container img:nth-child(6) { transform: rotateY(180deg) translateZ(120px); }
+      #spin-container img:nth-child(7) { transform: rotateY(216deg) translateZ(120px); }
+      #spin-container img:nth-child(8) { transform: rotateY(252deg) translateZ(120px); }
+      #spin-container img:nth-child(9) { transform: rotateY(288deg) translateZ(120px); }
+      #spin-container img:nth-child(10) { transform: rotateY(324deg) translateZ(120px); }
+
+      h1 {
+        font-size: 2em;
+      }
+      
+      .container {
+        margin: 20px 10px;
+        padding: 20px;
+      }
+
+      .message-container {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        margin: 10px 5px;
+        font-size: 14px;
+      }
+
+      #spin-container p {
+        font-size: 24px;
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #Content {
+        max-width: 95%;
+      }
+
+      #bq {
+        padding: 10px;
+      }
+
+      #bq p {
+        font-size: 13px;
+      }
+
+      .message-container {
+        font-size: 13px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="hearts-container"></div>
-  <div class="container fade-in">
-    <h1>Manu loves you and miss you forever Chinni ❤️</h1>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&display=swap" rel="stylesheet">
-    <div class="message-container" style="padding: 20px; font-family: 'Dancing Script', cursive, 'Open Sans', sans-serif; line-height: 1.8; text-align: justify; max-width: 650px; margin: auto;">
+  
+  <!-- Gift Box Section -->
+  <div class="gift-section" id="giftSection">
+    <div id="bodyblur">
+      <img src="" id="wallpaper" />
+    </div>
+    <div id="Content">
+      <div id="kadoIn">
+        <svg class="gift-box" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="15" y="35" width="70" height="50" fill="#ff6b6b" stroke="#d63031" stroke-width="2" rx="5"/>
+          <rect x="12" y="25" width="76" height="20" fill="#e17055" stroke="#d63031" stroke-width="2" rx="3"/>
+          <rect x="45" y="25" width="10" height="60" fill="#fdcb6e"/>
+          <rect x="12" y="40" width="76" height="10" fill="#fdcb6e"/>
+          <ellipse cx="42" cy="25" rx="8" ry="6" fill="#f39c12"/>
+          <ellipse cx="58" cy="25" rx="8" ry="6" fill="#f39c12"/>
+          <circle cx="50" cy="25" r="4" fill="#e67e22"/>
+          <circle cx="25" cy="15" r="1.5" fill="#ffeaa7"/>
+          <circle cx="75" cy="20" r="1" fill="#ffeaa7"/>
+          <circle cx="20" cy="70" r="1" fill="#ffeaa7"/>
+          <circle cx="80" cy="75" r="1.5" fill="#ffeaa7"/>
+        </svg>
+      </div>
+      <p id="ket">
+        <span style="font-style: italic; color: rgb(255,255,255); margin-top: 3px !important;">Open the gift, Sukku 💝</span>
+      </p>
+      <div class="kumpulanstiker">
+        <img src="https://media.tenor.com/4Ijycn6xFzUAAAAj/mochi-blue-roses.gif" />
+        <img src="https://feeldreams.github.io/bunga.gif" />
+        <img src="https://feeldreams.github.io/pandacoklat.gif" />
+        <img src="https://media.tenor.com/snFoLI-S9CQAAAAj/milk-and-mocha.gif" />
+        <img src="https://feeldreams.github.io/emawh.gif" />
+        <img src="https://feeldreams.github.io/pandacoklat.gif" />
+      </div>
+      <p id="halo" class="halo"></p>
+      <div>
+        <blockquote id="bq" data-text="💞">
+          <p id="kalimat">Happy Birthday, Sukku! Today is all about celebrating you, my love.</p>
+          <p id="pesan1">Tap here for your special surprise! 🎉</p>
+          <div id="kolombaru">
+            <li id="lv1">❤️</li>
+            <li id="lv2">💖</li>
+            <li id="lv3">💕</li>
+            <li id="lv4">💞</li>
+          </div>
+          <p id="pesan2">You make every day magical, Chinni! ✨</p>
+          <p id="pesan3">Do you know what makes today extra special?</p>
+          <p id="pesan4" class="sty2">It's your birthday, my beautiful Sukku!</p>
+          <p id="pesan5" class="sty2">Today, I wish you a year filled with our love, laughter, and beautiful memories together.</p>
+          <p id="pesan6" class="sty2">Remember, you deserve every happiness in the world. You are my everything, Sukku!</p>
+          <p id="opsL">Tap to see your photo carousel!</p>
+        </blockquote>
+      </div>
+      <div id="Tombol"><a id="By">💝 Next Surprise</a></div>
+    </div>
+  </div>
 
-  <p><strong>Hey Sukku, my sweetheart 💑,</strong></p>
+  <!-- Carousel Section -->
+  <div class="carousel-section" id="carouselSection">
+    <!-- 3D Photo Carousel -->
+    <div id="drag-container">
+      <div id="spin-container">
+        <!-- Replace these src URLs with your actual photos -->
+        <img src="images/sukku1.jpg" alt="Sukku Photo 1">
+        <img src="images/sukku2.jpg" alt="Sukku Photo 2">
+        <img src="images/sukku3.jpg" alt="Sukku Photo 3">
+        <img src="images/sukku4.jpg" alt="Sukku Photo 4">
+        <img src="images/sukku5.jpg" alt="Sukku Photo 5">
+        <img src="images/sukku6.jpg" alt="Sukku Photo 6">
+        <img src="images/sukku7.jpg" alt="Sukku Photo 7">
+        <img src="images/sukku8.jpg" alt="Sukku Photo 8">
+        <img src="images/sukku9.jpg" alt="Sukku Photo 9">
+        <img src="images/sukku10.jpg" alt="Sukku Photo 10">
+        <p>Happy Birthday Sukku</p>
+      </div>
+    </div>
 
-  <p><strong>Love you Chinni 💖</strong>, my heart, my everything…</p>
+    <!-- Main Content -->
+    <div class="container fade-in">
+      <h1>Manu loves you and miss you forever Chinni ❤️</h1>
+      
+      <div class="message-container">
+        <p><strong>Hey Sukku, my sweetheart 💑,</strong></p>
+        <p><strong>Love you Chinni 💖</strong>, my heart, my everything…</p>
+        <p>From the very first moment I saw you in the cafeteria 🍽️, something inside me changed forever. That was the day I fell for your beautiful eyes 👀, and soon after… your soft, magical voice 🎶. Day by day, I fell for your character, your heart, your soul, big fan of your dance ❤️. You became the one I couldn't stop thinking about.</p>
+        <p>Our metro journeys 🚇 together were not just travel—they were magic ✨. Every morning I used to wait just to see you, and that one glimpse of you would make my entire day ☀️. We'd listen to songs together with smiles on our faces and hearts full of warmth. With you, everything felt like a second, but every second was unforgettable 🕰️.</p>
+        <p>The day you gifted me Simba 🦁 on my birthday 🎂—that wasn't just a gift, it was a piece of your love that I've kept close to my heart ever since. And yes, I still use the same gym bag 🎒 you gave me—because it's not just a bag, it's you, with me every single day.</p>
+        <p>Our time at work together was golden 🏢. Having lunch 🍱, dinner 🍽️, sharing laughter, admiration, helping you with tips and assessments—it all made me feel complete. You used to come to me for guidance, and little did you know, you were teaching me how to love.</p>
+        <p>Even after that, we never really drifted. You were always there, every day, like the heartbeat in my chest 💓. We played games online 🎮, waited for each other before sleeping 🌙, laughed, talked, shared life. I admired your bravery, how you stood strong with your family, even in the toughest times.</p>
+        <p>I know how deeply I care for you, how much I want to protect you like my own soul 🛡️. I've seen your love—genuine, raw, beautiful—in your eyes 👁️‍🗨️, and I feel it every day. We will be together forever as husband and wife, no matter what life throws at us.</p>
+        <p><strong>I love you, Sukku ❤️</strong><br><strong>I love you, Chinni 💞</strong><br>You are my now, my forever, my dream, my everything.</p>
+        <p><em>Let's walk through life hand in hand, soul in soul, heart in heart 💑.</em></p>
+        <p><strong>Love you till my last breath… and beyond ♾️</strong></p>
+        <p style="margin-top: 30px;"><em>Your faith, your love, your lovable Manu 🦁</em></p>
+      </div>
+      
+      <div class="btn-container">
+        <a href="#" class="btn" onclick="goBackToGift()">🎁 Back to Gift</a>
+      </div>
+    </div>
+  </div>
 
-  <p>
-    From the very first moment I saw you in the cafeteria 🍽️, something inside me changed forever.
-    That was the day I fell for your beautiful eyes 👀, and soon after… your soft, magical voice 🎶.
-    Day by day, I fell for your character, your heart, your soul, big fan of your dance ❤️.
-    You became the one I couldn’t stop thinking about.
-  </p>
+  <script>
+    // Global variables
+    let fungsiAwal = 0;
+    let nama = '';
 
-  <p>
-    Our metro journeys 🚇 together were not just travel—they were magic ✨.
-    Every morning I used to wait just to see you, and that one glimpse of you would make my entire day ☀️.
-    We’d listen to *Hejjegondhu Hejje* and *Maathu nannovlu mounanu nannavlu* together with smiles on our faces and hearts full of warmth.
-    Even watching that silly Salman Khan song (*Aae haae haae… Tujhe Aksa Beach ghumaa du… Aa chalti kya?*) made everything feel lighter and happier 🕺💃.
-    With you, everything felt like a second, but every second was unforgettable 🕰️.
-  </p>
+    // SweetAlert configurations
+    const swalst = Swal.mixin({
+      timer: 2300,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      timerProgressBar: true,
+      imageHeight: 90,
+    });
 
-  <p>
-    The day you gifted me Simba 🦁 on my birthday 🎂—that wasn’t just a gift, it was a piece of your love that I’ve kept close to my heart ever since.
-    And yes, I still use the same gym bag 🎒 you gave me—because it’s not just a bag, it’s you, with me every single day.
-    I’ll be honest… I was really heartbroken the day you didn’t come to my birthday 🥺,
-    but that never changed what you mean to me. You’re too precious, and love doesn’t keep scores—it just stays.
-  </p>
+    const swals = Swal.mixin({
+      allowOutsideClick: false,
+      cancelButtonColor: "#FF0040",
+      imageHeight: 80,
+    });
 
-  <p>
-    Our time at work together was golden 🏢.
-    Having lunch 🍱, dinner 🍽️, sharing laughter, admiration, helping you with tips and assessments—it all made me feel complete.
-    You used to come to me for guidance, and little did you know, you were teaching me how to love.
-    The day you left the company felt like a nightmare 🌧️—like something just broke inside me.
-    But that’s when I truly understood how deeply I’m connected to you.
-  </p>
+    // Initialize page
+    document.addEventListener("DOMContentLoaded", function() {
+      // Hide all messages initially
+      const messages = ["pesan1", "pesan2", "pesan3", "pesan4", "pesan5", "pesan6", "opsL"];
+      messages.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.opacity = "0";
+        }
+      });
+      
+      const kolombaru = document.getElementById("kolombaru");
+      if (kolombaru) {
+        kolombaru.style.opacity = "0";
+      }
 
-  <p>
-    Even after that, we never really drifted.
-    You were always there, every day, like the heartbeat in my chest 💓.
-    We played games online 🎮, waited for each other before sleeping 🌙, laughed, talked, shared life.
-    I admired your bravery, how you stood strong with your family, even in the toughest times.
-    And all I wanted, and still want, is to be your person—the one who never leaves, the one who stays—no matter what 🤝.
-  </p>
+      // Start heart animation
+      setInterval(createHeart, 2000);
+      
+      // Initialize carousel interactions
+      initCarousel();
+    });
 
-  <p>
-    There’s still so much I want to tell you… things that’ll make you smile, blush, and fall in love with me all over again—
-    but those secrets are for our wedding night 💍.
-    Till then, stay curious and keep your heart ready for surprises 🎁.
-  </p>
+    // Gift box click handler
+    document.getElementById("kadoIn").onclick = function () {
+      if (fungsiAwal == 0) {
+        fungsiAwal = 1;
+        document.getElementById("kadoIn").style = "transition:all .8s ease;transform:scale(10);opacity:0";
+        document.getElementById("wallpaper").style = "transform: scale(1.5);";
+        document.getElementById("ket").style = "display:none";
+        setTimeout(initengahan, 300);
+        setTimeout(inipesan, 500);
+      }
+    };
 
-  <p>
-    I know how deeply I care for you, how much I want to protect you like my own soul 🛡️.
-    I’ve seen your love—genuine, raw, beautiful—in your eyes 👁️‍🗨️, and I feel it every day.
-    We will be together forever as husband and wife, no matter what life throws at us.
-    Just one request—never leave me and go.
-    You know how much I love you… you’ve felt it.
-    And I know, without a doubt, that we’re meant to be 👫.
-  </p>
+    // Name input function
+    async function inipesan() {
+      var { value: inputNama } = await swals.fire({
+        title: "What's your beautiful name, my love?",
+        input: "text",
+        inputPlaceholder: "Enter your name here...",
+        inputValue: "Sukku"
+      });
+      if (inputNama && inputNama.length < 11) {
+        nama = inputNama;
+        let vketikhalo = "Happy Birthday, " + nama + "! 💖";
+        mulainama(vketikhalo);
+      } else {
+        await Swal.fire({
+          title: "Your name is beautiful!",
+          text: "Please enter a shorter name so I can call you properly.",
+          icon: "info",
+        });
+        inipesan();
+      }
+    }
 
-  <p><strong>I love you, Sukku ❤️</strong><br>
-  <strong>I love you, Chinni 💞</strong><br>
-  You are my now, my forever, my dream, my everything.</p>
+    // Question function
+    async function pertanyaan() {
+      var { isConfirmed: prtanya } = await swals.fire({
+        title: nama + ", are you ready for your special photo carousel surprise?",
+        text: "Your choice is:",
+        imageUrl: "https://feeldreams.github.io/pandacoklat.gif",
+        showCancelButton: true,
+        confirmButtonText: "Yes! Show me the surprise! 💖",
+        cancelButtonText: "Maybe later",
+      });
+      
+      if (prtanya) {
+        showCarousel();
+      } else {
+        await swalst.fire({
+          title: nama + ", don't miss this special surprise!",
+          timer: 2000,
+          imageUrl: "https://feeldreams.github.io/weee.gif",
+        });
+        showCarousel();
+      }
+    }
 
-  <p><em>Let’s walk through life hand in hand, soul in soul, heart in heart 💑.</em></p>
+    // Show carousel section
+    function showCarousel() {
+      document.getElementById("giftSection").style.display = "none";
+      document.getElementById("carouselSection").classList.add("active");
+      // Scroll to top of carousel section
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-  <p><strong>Love you till my last breath… and beyond ♾️</strong></p>
+    // Go back to gift section
+    function goBackToGift() {
+      document.getElementById("carouselSection").classList.remove("active");
+      document.getElementById("giftSection").style.display = "flex";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-  <p><strong>💖🥺</strong></p>
+    // Animation functions
+    function initengahan() {
+      document.getElementById("bodyblur").style = "opacity:.2;animation:none;background:rgba(0,0,0,.3)";
+      document.querySelector(".kumpulanstiker").style = "display:flex;opacity:1;animation:none";
+      document.getElementById("bq").style = "opacity:1;visibility:visible;transform: scale(1)";
+      document.getElementById("Tombol").style = "opacity:1;visibility:visible;transform: scale(1)";
+    }
 
-  <p style="margin-top: 30px;"><em>Your faith, your love, your lovable Manu 🦁</em></p>
+    function mulainama(vketikhalo) {
+      new TypeIt("#halo", {
+        strings: [vketikhalo],
+        startDelay: 400,
+        speed: 45,
+        cursor: false,
+        afterComplete: function () {
+          setTimeout(initengahan2, 500);
+        },
+      }).go();
+    }
 
-</div>
-    <a href="question.html" class="btn">A Question From My Heart</a>  
-    <a href="birthday.html" class="btn">🎂 Birthday Wishes 🎂</a>
-    <a href="giftbox.html" class="btn">🎁 Special Gift Box 🎁</a>
-</div>
-  <script src="script.js"></script>
+    function initengahan2() {
+      // Show all messages step by step
+      setTimeout(() => { if(document.getElementById("pesan1")) document.getElementById("pesan1").style.opacity = "1"; }, 500);
+      setTimeout(() => { if(document.getElementById("kolombaru")) document.getElementById("kolombaru").style.opacity = "1"; }, 1000);
+      setTimeout(() => { if(document.getElementById("pesan2")) document.getElementById("pesan2").style.opacity = "1"; }, 1500);
+      setTimeout(() => { if(document.getElementById("pesan3")) document.getElementById("pesan3").style.opacity = "1"; }, 2000);
+      setTimeout(() => { if(document.getElementById("pesan4")) document.getElementById("pesan4").style.opacity = "1"; }, 2500);
+      setTimeout(() => { if(document.getElementById("pesan5")) document.getElementById("pesan5").style.opacity = "1"; }, 3000);
+      setTimeout(() => { if(document.getElementById("pesan6")) document.getElementById("pesan6").style.opacity = "1"; }, 3500);
+      setTimeout(() => { if(document.getElementById("opsL")) document.getElementById("opsL").style.opacity = "1"; }, 4000);
+    }
+
+    // Create floating hearts animation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+      document.querySelector('.hearts-container').appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+
+    // Blockquote click handler
+    document.getElementById("bq").onclick = function() {
+      pertanyaan();
+    };
+
+    // Button click handler
+    document.getElementById("By").onclick = function() {
+      pertanyaan();
+    };
+
+    // Initialize carousel interactions
+    function initCarousel() {
+      const dragContainer = document.getElementById('drag-container');
+      const spinContainer = document.getElementById('spin-container');
+      
+      if (!dragContainer || !spinContainer) return;
+      
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+      let rotation = { x: -10, y: 0 };
+      
+      // Mouse events
+      dragContainer.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+        dragContainer.style.cursor = 'grabbing';
+        spinContainer.style.animationPlayState = 'paused';
+      });
+      
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        
+        const deltaX = e.clientX - previousMousePosition.x;
+        const deltaY = e.clientY - previousMousePosition.y;
+        
+        rotation.y += deltaX * 0.5;
+        rotation.x -= deltaY * 0.5;
+        
+        // Limit vertical rotation
+        rotation.x = Math.max(-90, Math.min(90, rotation.x));
+        
+        dragContainer.style.transform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`;
+        
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+      });
+      
+      document.addEventListener('mouseup', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        dragContainer.style.cursor = 'grab';
+        spinContainer.style.animationPlayState = 'running';
+      });
+      
+      // Touch events for mobile
+      dragContainer.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        const touch = e.touches[0];
+        previousMousePosition = { x: touch.clientX, y: touch.clientY };
+        spinContainer.style.animationPlayState = 'paused';
+        e.preventDefault();
+      });
+      
+      document.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - previousMousePosition.x;
+        const deltaY = touch.clientY - previousMousePosition.y;
+        
+        rotation.y += deltaX * 0.5;
+        rotation.x -= deltaY * 0.5;
+        
+        // Limit vertical rotation
+        rotation.x = Math.max(-90, Math.min(90, rotation.x));
+        
+        dragContainer.style.transform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`;
+        
+        previousMousePosition = { x: touch.clientX, y: touch.clientY };
+        e.preventDefault();
+      });
+      
+      document.addEventListener('touchend', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        spinContainer.style.animationPlayState = 'running';
+      });
+      
+      // Initial cursor style
+      dragContainer.style.cursor = 'grab';
+    }
+
+    // Pause/resume carousel animation on hover
+    document.addEventListener('DOMContentLoaded', function() {
+      const spinContainer = document.getElementById('spin-container');
+      if (spinContainer) {
+        spinContainer.addEventListener('mouseenter', function() {
+          this.style.animationPlayState = 'paused';
+        });
+        
+        spinContainer.addEventListener('mouseleave', function() {
+          this.style.animationPlayState = 'running';
+        });
+      }
+    });
+
+    // Handle window resize for responsive design
+    window.addEventListener('resize', function() {
+      // Adjust carousel size based on screen size
+      const dragContainer = document.getElementById('drag-container');
+      if (dragContainer && window.innerWidth <= 768) {
+        dragContainer.style.width = '300px';
+        dragContainer.style.height = '300px';
+      } else if (dragContainer) {
+        dragContainer.style.width = '400px';
+        dragContainer.style.height = '400px';
+      }
+    });
+  </script>
 </body>
 </html>
