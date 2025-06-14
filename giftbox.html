@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Chinni ❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&family=Open+Sans&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600;700&family=Ubuntu:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
   <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
   <style>
@@ -18,7 +18,6 @@
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      /* REMOVED overflow: hidden to allow scrolling */
       position: relative;
     }
 
@@ -31,7 +30,7 @@
       align-items: center;
       text-align: center;
       position: relative;
-      background: linear-gradient(to bottom, #ffe1e1, #ff217de0);
+      background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
     }
 
     .gift-section.hidden {
@@ -66,22 +65,25 @@
     }
 
     .gift-box {
-      width: 130px;
-      height: 130px;
+      width: 150px;
+      height: 150px;
       cursor: pointer;
       transition: all 0.3s ease;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
     }
 
     .gift-box:hover {
-      transform: scale(1.1);
+      transform: scale(1.1) rotate(5deg);
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
     }
 
     #ket {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       color: white;
-      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
-      margin-top: 10px;
+      text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.8);
+      margin-top: 15px;
+      font-family: 'Pacifico', cursive;
     }
 
     .kumpulanstiker {
@@ -94,30 +96,35 @@
     .kumpulanstiker img {
       width: 80px;
       height: auto;
-      margin: 5px;
+      margin: 8px;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     #halo {
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 700;
       color: white;
-      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+      text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.8);
       margin-bottom: 20px;
+      font-family: 'Dancing Script', cursive;
     }
 
     #bq {
       opacity: 0;
       visibility: hidden;
       margin: 20px auto;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      border-radius: 8px;
+      padding: 25px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
       color: white;
-      font-weight: 700;
-      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
       transition: all 1s ease;
       max-width: 500px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     }
 
     #bq p {
@@ -134,11 +141,12 @@
     .sty2 {
       font-size: 16px;
       font-style: italic;
-      color: #ffcc00;
+      color: #ffeb3b;
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     #kolombaru {
-      margin: 15px 0;
+      margin: 20px 0;
       display: flex;
       justify-content: center;
       list-style: none;
@@ -147,8 +155,8 @@
     }
 
     #kolombaru li {
-      margin: 0 10px;
-      font-size: 24px;
+      margin: 0 12px;
+      font-size: 28px;
       animation: bounce 2s infinite;
     }
 
@@ -157,10 +165,10 @@
         transform: translateY(0);
       }
       40% {
-        transform: translateY(-10px);
+        transform: translateY(-15px);
       }
       60% {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
       }
     }
 
@@ -173,20 +181,22 @@
 
     #Tombol a {
       display: inline-block;
-      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3);
       color: white;
-      padding: 15px 30px;
+      padding: 18px 35px;
       text-decoration: none;
       border-radius: 50px;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      font-family: 'Pacifico', cursive;
+      font-size: 16px;
     }
 
     #Tombol a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     }
 
     /* Carousel Section Styles */
@@ -214,8 +224,8 @@
 
     .heart {
       position: absolute;
-      font-size: 20px;
-      color: rgba(255, 105, 180, 0.7);
+      font-size: 24px;
+      color: rgba(255, 105, 180, 0.8);
       animation: float-hearts 8s infinite linear;
     }
 
@@ -240,54 +250,64 @@
     }
 
     #drag-container {
-      height: 400px;
-      width: 400px;
+      height: 450px;
+      width: 450px;
       margin: 50px auto;
     }
 
     #spin-container {
       width: 100%;
       height: 100%;
-      animation: spin 20s infinite linear;
+      animation: spin 25s infinite linear;
     }
 
     #spin-container img {
-      width: 100px;
-      height: 140px;
+      width: 160px;
+      height: 200px;
       position: absolute;
       left: 50%;
       top: 50%;
-      transform-origin: 50% 50% -150px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-      border-radius: 10px;
-      border: 3px solid #fff;
+      transform-origin: 50% 50% -180px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      border-radius: 15px;
+      border: 4px solid #fff;
+      object-fit: cover;
+      transition: all 0.3s ease;
     }
 
-    #spin-container img:nth-child(1) { transform: rotateY(0deg) translateZ(150px); }
-    #spin-container img:nth-child(2) { transform: rotateY(36deg) translateZ(150px); }
-    #spin-container img:nth-child(3) { transform: rotateY(72deg) translateZ(150px); }
-    #spin-container img:nth-child(4) { transform: rotateY(108deg) translateZ(150px); }
-    #spin-container img:nth-child(5) { transform: rotateY(144deg) translateZ(150px); }
-    #spin-container img:nth-child(6) { transform: rotateY(180deg) translateZ(150px); }
-    #spin-container img:nth-child(7) { transform: rotateY(216deg) translateZ(150px); }
-    #spin-container img:nth-child(8) { transform: rotateY(252deg) translateZ(150px); }
-    #spin-container img:nth-child(9) { transform: rotateY(288deg) translateZ(150px); }
-    #spin-container img:nth-child(10) { transform: rotateY(324deg) translateZ(150px); }
+    #spin-container img:hover {
+      transform-origin: 50% 50% -180px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      border-color: #ff6b6b;
+    }
+
+    #spin-container img:nth-child(1) { transform: rotateY(0deg) translateZ(180px); }
+    #spin-container img:nth-child(2) { transform: rotateY(36deg) translateZ(180px); }
+    #spin-container img:nth-child(3) { transform: rotateY(72deg) translateZ(180px); }
+    #spin-container img:nth-child(4) { transform: rotateY(108deg) translateZ(180px); }
+    #spin-container img:nth-child(5) { transform: rotateY(144deg) translateZ(180px); }
+    #spin-container img:nth-child(6) { transform: rotateY(180deg) translateZ(180px); }
+    #spin-container img:nth-child(7) { transform: rotateY(216deg) translateZ(180px); }
+    #spin-container img:nth-child(8) { transform: rotateY(252deg) translateZ(180px); }
+    #spin-container img:nth-child(9) { transform: rotateY(288deg) translateZ(180px); }
+    #spin-container img:nth-child(10) { transform: rotateY(324deg) translateZ(180px); }
 
     #spin-container p {
       font-family: 'Dancing Script', cursive;
-      font-size: 36px;
+      font-size: 42px;
+      font-weight: 700;
       color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 10;
-      background: rgba(255,255,255,0.1);
-      padding: 10px 20px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
+      background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,105,180,0.3));
+      padding: 15px 25px;
+      border-radius: 25px;
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(255,255,255,0.3);
     }
 
     @keyframes spin {
@@ -297,15 +317,16 @@
 
     /* Main Content Styles */
     .container {
-      background: rgba(255, 255, 255, 0.95);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 248, 0.95));
       margin: 50px auto;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 800px;
+      padding: 50px;
+      border-radius: 25px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+      max-width: 900px;
       position: relative;
       z-index: 2;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .fade-in {
@@ -321,31 +342,82 @@
       text-align: center;
       color: #8e44ad;
       font-family: 'Dancing Script', cursive;
-      font-size: 3em;
-      margin-bottom: 30px;
+      font-size: 3.5em;
+      margin-bottom: 40px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      font-weight: 700;
     }
 
-    .message-container {
-      padding: 20px;
-      font-family: 'Open Sans', sans-serif;
-      line-height: 1.8;
-      text-align: justify;
-      max-width: 650px;
+    /* New Message Container Styles */
+    .birthday-message {
+      font-family: 'Segoe UI', 'Quicksand', sans-serif;
+      padding: 35px;
+      background: linear-gradient(145deg, #fff0f8, #fce4ec);
+      border-radius: 20px;
+      color: #444;
+      max-width: 800px;
       margin: auto;
-      font-size: 16px;
-      color: #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 2px solid rgba(214, 51, 132, 0.2);
     }
 
-    .message-container p {
+    .birthday-message h2 {
+      text-align: center;
+      color: #d63384;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2em;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .birthday-message p {
+      font-size: 18px;
+      line-height: 1.8;
       margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .birthday-message p:last-child {
+      font-weight: 600;
+      text-align: center;
+      color: #d63384;
+    }
+
+    /* Final Image Styles */
+    .final-image-container {
+      text-align: center;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .final-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      border: 5px solid #fff;
+      transition: all 0.3s ease;
+    }
+
+    .final-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .final-image-caption {
+      margin-top: 20px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8em;
+      color: #d63384;
+      font-weight: 600;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
     }
 
     .btn {
       display: inline-block;
-      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3);
       color: white;
-      padding: 15px 30px;
+      padding: 18px 35px;
       text-decoration: none;
       border-radius: 50px;
       font-weight: bold;
@@ -353,18 +425,32 @@
       text-align: center;
       transition: all 0.3s ease;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      font-family: 'Quicksand', sans-serif;
+      font-family: 'Pacifico', cursive;
       cursor: pointer;
     }
 
     .btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     }
 
     .btn-container {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 40px;
+    }
+
+    /* Sparkle Animation */
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0); }
+    }
+
+    .sparkle {
+      position: absolute;
+      color: #ffd700;
+      font-size: 16px;
+      animation: sparkle 2s infinite;
     }
 
     /* Responsive Design */
@@ -374,23 +460,23 @@
       }
 
       .gift-box {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
       }
 
       #bq {
         margin: 20px 10px;
-        padding: 15px;
-        max-width: 90%;
+        padding: 20px;
+        max-width: 95%;
       }
 
       #bq p {
-        font-size: 14px;
-        margin: 10px 0;
+        font-size: 15px;
+        margin: 12px 0;
       }
 
       #ket {
-        font-size: 16px;
+        font-size: 18px;
       }
 
       .kumpulanstiker img {
@@ -398,50 +484,58 @@
       }
 
       #drag-container {
-        height: 300px;
-        width: 300px;
+        height: 350px;
+        width: 350px;
       }
       
       #spin-container img {
-        width: 80px;
-        height: 110px;
-        transform-origin: 50% 50% -120px;
+        width: 90px;
+        height: 120px;
+        transform-origin: 50% 50% -140px;
       }
       
-      #spin-container img:nth-child(1) { transform: rotateY(0deg) translateZ(120px); }
-      #spin-container img:nth-child(2) { transform: rotateY(36deg) translateZ(120px); }
-      #spin-container img:nth-child(3) { transform: rotateY(72deg) translateZ(120px); }
-      #spin-container img:nth-child(4) { transform: rotateY(108deg) translateZ(120px); }
-      #spin-container img:nth-child(5) { transform: rotateY(144deg) translateZ(120px); }
-      #spin-container img:nth-child(6) { transform: rotateY(180deg) translateZ(120px); }
-      #spin-container img:nth-child(7) { transform: rotateY(216deg) translateZ(120px); }
-      #spin-container img:nth-child(8) { transform: rotateY(252deg) translateZ(120px); }
-      #spin-container img:nth-child(9) { transform: rotateY(288deg) translateZ(120px); }
-      #spin-container img:nth-child(10) { transform: rotateY(324deg) translateZ(120px); }
+      #spin-container img:nth-child(1) { transform: rotateY(0deg) translateZ(140px); }
+      #spin-container img:nth-child(2) { transform: rotateY(36deg) translateZ(140px); }
+      #spin-container img:nth-child(3) { transform: rotateY(72deg) translateZ(140px); }
+      #spin-container img:nth-child(4) { transform: rotateY(108deg) translateZ(140px); }
+      #spin-container img:nth-child(5) { transform: rotateY(144deg) translateZ(140px); }
+      #spin-container img:nth-child(6) { transform: rotateY(180deg) translateZ(140px); }
+      #spin-container img:nth-child(7) { transform: rotateY(216deg) translateZ(140px); }
+      #spin-container img:nth-child(8) { transform: rotateY(252deg) translateZ(140px); }
+      #spin-container img:nth-child(9) { transform: rotateY(288deg) translateZ(140px); }
+      #spin-container img:nth-child(10) { transform: rotateY(324deg) translateZ(140px); }
 
       h1 {
-        font-size: 2em;
+        font-size: 2.5em;
       }
       
       .container {
         margin: 20px 10px;
-        padding: 20px;
+        padding: 30px 20px;
       }
 
-      .message-container {
-        font-size: 14px;
-        padding: 10px;
+      .birthday-message {
+        padding: 25px;
+        font-size: 16px;
+      }
+
+      .birthday-message h2 {
+        font-size: 1.8em;
+      }
+
+      .birthday-message p {
+        font-size: 16px;
       }
 
       .btn {
-        padding: 12px 24px;
+        padding: 15px 25px;
         margin: 10px 5px;
         font-size: 14px;
       }
 
       #spin-container p {
-        font-size: 24px;
-        padding: 8px 16px;
+        font-size: 28px;
+        padding: 10px 20px;
       }
     }
 
@@ -451,19 +545,27 @@
       }
 
       #bq {
-        padding: 10px;
+        padding: 15px;
       }
 
       #bq p {
-        font-size: 13px;
+        font-size: 14px;
       }
 
-      .message-container {
-        font-size: 13px;
+      .birthday-message {
+        padding: 20px;
+      }
+
+      .birthday-message p {
+        font-size: 15px;
       }
 
       h1 {
-        font-size: 1.8em;
+        font-size: 2em;
+      }
+
+      .birthday-message h2 {
+        font-size: 1.6em;
       }
     }
   </style>
@@ -479,21 +581,33 @@
     <div id="Content">
       <div id="kadoIn">
         <svg class="gift-box" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="35" width="70" height="50" fill="#ff6b6b" stroke="#d63031" stroke-width="2" rx="5"/>
-          <rect x="12" y="25" width="76" height="20" fill="#e17055" stroke="#d63031" stroke-width="2" rx="3"/>
+          <!-- Enhanced gift box design -->
+          <defs>
+            <linearGradient id="boxGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#ee5a24;stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="lidGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#e17055;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#d63031;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <rect x="15" y="35" width="70" height="50" fill="url(#boxGradient)" stroke="#d63031" stroke-width="2" rx="5"/>
+          <rect x="12" y="25" width="76" height="20" fill="url(#lidGradient)" stroke="#d63031" stroke-width="2" rx="3"/>
           <rect x="45" y="25" width="10" height="60" fill="#fdcb6e"/>
           <rect x="12" y="40" width="76" height="10" fill="#fdcb6e"/>
           <ellipse cx="42" cy="25" rx="8" ry="6" fill="#f39c12"/>
           <ellipse cx="58" cy="25" rx="8" ry="6" fill="#f39c12"/>
           <circle cx="50" cy="25" r="4" fill="#e67e22"/>
-          <circle cx="25" cy="15" r="1.5" fill="#ffeaa7"/>
-          <circle cx="75" cy="20" r="1" fill="#ffeaa7"/>
-          <circle cx="20" cy="70" r="1" fill="#ffeaa7"/>
-          <circle cx="80" cy="75" r="1.5" fill="#ffeaa7"/>
+          <!-- Sparkles -->
+          <circle cx="25" cy="15" r="1.5" fill="#ffeaa7" class="sparkle"/>
+          <circle cx="75" cy="20" r="1" fill="#ffeaa7" class="sparkle"/>
+          <circle cx="20" cy="70" r="1" fill="#ffeaa7" class="sparkle"/>
+          <circle cx="80" cy="75" r="1.5" fill="#ffeaa7" class="sparkle"/>
         </svg>
       </div>
       <p id="ket">
-        <span style="font-style: italic; color: rgb(255,255,255); margin-top: 3px !important;">Open the gift, Sukku 💝</span>
+        <span style="font-style: italic; color: rgb(255,255,255); margin-top: 3px !important;">🎁✨ Open the magical gift, my beautiful Sukku! ✨💝</span>
       </p>
       <div class="kumpulanstiker">
         <img src="https://media.tenor.com/4Ijycn6xFzUAAAAj/mochi-blue-roses.gif" />
@@ -506,23 +620,23 @@
       <p id="halo" class="halo"></p>
       <div>
         <blockquote id="bq" data-text="💞">
-          <p id="kalimat">Happy Birthday, Sukku! Today is all about celebrating you, my love.</p>
-          <p id="pesan1">Tap here for your special surprise! 🎉</p>
+          <p id="kalimat">🎂 Happy Birthday, my precious Sukku! Today is all about celebrating the most beautiful soul in my world! ✨</p>
+          <p id="pesan1">💝 Tap here for your magical surprise! 🎉</p>
           <div id="kolombaru">
             <li id="lv1">❤️</li>
             <li id="lv2">💖</li>
             <li id="lv3">💕</li>
             <li id="lv4">💞</li>
           </div>
-          <p id="pesan2">You make every day magical, Chinni! ✨</p>
-          <p id="pesan3">Do you know what makes today extra special?</p>
-          <p id="pesan4" class="sty2">It's your birthday, my beautiful Sukku!</p>
-          <p id="pesan5" class="sty2">Today, I wish you a year filled with our love, laughter, and beautiful memories together.</p>
-          <p id="pesan6" class="sty2">Remember, you deserve every happiness in the world. You are my everything, Sukku!</p>
-          <p id="opsL">Tap to see your photo carousel!</p>
+          <p id="pesan2">You make every moment of my life sparkle with joy, Chinni! ✨💫</p>
+          <p id="pesan3">Do you know what makes today the most special day of the year? 🤔</p>
+          <p id="pesan4" class="sty2">It's your birthday, my angel Sukku! The day heaven gifted you to this world! 👼</p>
+          <p id="pesan5" class="sty2">Today, I wish you endless happiness, dreams coming true, and our love growing stronger every day! 🌈💕</p>
+          <p id="pesan6" class="sty2">You deserve all the love, joy, and magic in the universe, my beautiful Sukku! You are my everything! 🌟💖</p>
+          <p id="opsL">💫 Tap to see your enchanting photo carousel! 💫</p>
         </blockquote>
       </div>
-      <div id="Tombol"><a id="By">💝 Next Surprise</a></div>
+      <div id="Tombol"><a id="By">🎁💝 Enter the Magic 💝🎁</a></div>
     </div>
   </div>
 
@@ -531,42 +645,62 @@
     <!-- 3D Photo Carousel -->
     <div id="drag-container">
       <div id="spin-container">
-        <!-- Replace these src URLs with your actual photos -->
-        <img src="images/sukku1.jpg" alt="Sukku Photo 1">
-        <img src="images/sukku2.jpg" alt="Sukku Photo 2">
-        <img src="images/sukku3.jpg" alt="Sukku Photo 3">
-        <img src="images/sukku4.jpg" alt="Sukku Photo 4">
-        <img src="images/sukku5.jpg" alt="Sukku Photo 5">
-        <img src="images/sukku6.jpg" alt="Sukku Photo 6">
-        <img src="images/sukku7.jpg" alt="Sukku Photo 7">
-        <img src="images/sukku8.jpg" alt="Sukku Photo 8">
-        <img src="images/sukku9.jpg" alt="Sukku Photo 9">
-        <img src="images/sukku10.jpg" alt="Sukku Photo 10">
-        <p>Happy Birthday Sukku</p>
+        <!-- Updated with correct image paths -->
+        <img src="sukku1.jpeg" alt="Beautiful Sukku 1">
+        <img src="sukku2.jpeg" alt="Beautiful Sukku 2">
+        <img src="sukku3.jpeg" alt="Beautiful Sukku 3">
+        <img src="sukku4.jpeg" alt="Beautiful Sukku 4">
+        <img src="sukku5.jpeg" alt="Beautiful Sukku 5">
+        <img src="sukku6.jpeg" alt="Beautiful Sukku 6">
+        <img src="sukku7.jpeg" alt="Beautiful Sukku 7">
+        <img src="sukku8.jpeg" alt="Beautiful Sukku 8">
+        <img src="sukku9.jpeg" alt="Beautiful Sukku 9">
+        <img src="sukku10.jpeg" alt="Beautiful Sukku 10">
+        <p>🎂 Happy Birthday my Chinni 💖</p>
       </div>
     </div>
 
-<!--     <!-- Main Content -->
+    <!-- Main Content with New Message -->
     <div class="container fade-in">
-      <h1>Manu loves you and miss you forever Chinni ❤️</h1>
+      <h1>💖 Forever Yours, My Chinni 💖</h1>
       
-      <div class="message-container">
-        <p><strong>Hey Sukku, my sweetheart 💑,</strong></p>
-        <p><strong>Love you Chinni 💖</strong>, my heart, my everything…</p>
-        <p>From the very first moment I saw you in the cafeteria 🍽️, something inside me changed forever. That was the day I fell for your beautiful eyes 👀, and soon after… your soft, magical voice 🎶. Day by day, I fell for your character, your heart, your soul, big fan of your dance ❤️. You became the one I couldn't stop thinking about.</p>
-        <p>Our metro journeys 🚇 together were not just travel—they were magic ✨. Every morning I used to wait just to see you, and that one glimpse of you would make my entire day ☀️. We'd listen to songs together with smiles on our faces and hearts full of warmth. With you, everything felt like a second, but every second was unforgettable 🕰️.</p>
-        <p>The day you gifted me Simba 🦁 on my birthday 🎂—that wasn't just a gift, it was a piece of your love that I've kept close to my heart ever since. And yes, I still use the same gym bag 🎒 you gave me—because it's not just a bag, it's you, with me every single day.</p>
-        <p>Our time at work together was golden 🏢. Having lunch 🍱, dinner 🍽️, sharing laughter, admiration, helping you with tips and assessments—it all made me feel complete. You used to come to me for guidance, and little did you know, you were teaching me how to love.</p>
-        <p>Even after that, we never really drifted. You were always there, every day, like the heartbeat in my chest 💓. We played games online 🎮, waited for each other before sleeping 🌙, laughed, talked, shared life. I admired your bravery, how you stood strong with your family, even in the toughest times.</p>
-        <p>I know how deeply I care for you, how much I want to protect you like my own soul 🛡️. I've seen your love—genuine, raw, beautiful—in your eyes 👁️‍🗨️, and I feel it every day. We will be together forever as husband and wife, no matter what life throws at us.</p>
-        <p><strong>I love you, Sukku ❤️</strong><br><strong>I love you, Chinni 💞</strong><br>You are my now, my forever, my dream, my everything.</p>
-        <p><em>Let's walk through life hand in hand, soul in soul, heart in heart 💑.</em></p>
-        <p><strong>Love you till my last breath… and beyond ♾️</strong></p>
-        <p style="margin-top: 30px;"><em>Your faith, your love, your lovable Manu 🦁</em></p>
-      </div> -->
+      <div class="birthday-message">
+        <h2>🎂 Happiest Birthday, My Forever Girl – Sukku ❤️</h2>
+        <p>
+          On this day, the universe gave me its most beautiful gift—<strong>you</strong> 💝. My sweet Chinni, every second with you feels like a moment stolen from heaven ✨. You're not just a part of my life, you are my life, my heart, my home 🏡💞.
+        </p>
+        <p>
+          Your smile has the power to silence every storm inside me 🌈. Your laughter is my favorite melody 🎶. And your presence? It's the peace I never knew I needed 🕊️. No matter how hard or beautiful life gets, I just want to live it all with <strong>you by my side</strong> 🤗.
+        </p>
+        <p>
+          I may not be perfect, but my love for you is real, pure, and forever 💯. I promise to be there through every high and every low—without asking for anything... just silently hoping that you'll always walk beside me too 🤝. 
+        </p>
+        <p>
+          I'll stay loyal to you in this life and beyond 🌌. My heart belongs to you, only you—and I'll protect it like a treasure that no one else can touch 🛡️❤️. All I dream of is a forever where your name is still the one I whisper before I sleep and the first one I smile at when I wake up ☀️🌙.
+        </p>
+        <p>
+          Imagine us… old and wrinkled but still teasing each other, still holding hands at sunset 🌇, still dancing slowly to our favorite song playing softly in the background 💃🕺. That's the future I see with you. That's the future I want—and nothing else. Just you and me, growing old, laughing, loving, and never letting go 🧓👵❤️.
+        </p>
+        <p>
+          So today, on your birthday, I don't just celebrate the day you were born—I celebrate the miracle of your existence in my life 💖. You are my heart's only rhythm, and I feel the luckiest man alive just to love you.
+        </p>
+        <p>
+          Happy Birthday, my heartbeat, my sunshine, my forever girl – Sukku 🎉🎈💞<br>
+          See how perfect we'll still be, even with wrinkles and grey hair 😄💑👇
+        </p>
+      </div>
+
+      <!-- Final Image Display -->
+      <div class="final-image-container">
+        <img src="sukku11.jpeg" alt="Our Forever Love" class="final-image">
+        <div class="final-image-caption">
+          💑 Growing old together, still madly in love 💕
+        </div>
+      </div>
       
       <div class="btn-container">
-        <a href="#" class="btn" onclick="goBackToGift()">🎁 Back to Gift</a>
+        <a href="#" class="btn" onclick="goBackToGift()">🎁 Back to Gift Box</a>
+        <a href="#" class="btn" onclick="showLoveMessage()">💌 Special Message</a>
       </div>
     </div>
   </div>
